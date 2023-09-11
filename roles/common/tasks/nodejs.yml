@@ -12,6 +12,8 @@
 
 - name: Install NodeJS Dependencies
   ansible.builtin.shell: npm install
+  args:
+    chdir: /app
 
 - name: Importing schema_setup
   ansible.builtin.import_tasks:

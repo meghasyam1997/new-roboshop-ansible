@@ -22,5 +22,14 @@
         name: mongodb-org-shell
         state: installed
 
+    - name: Update MongoDB Listen Address
+      ansible.builtin.shell: sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/mongod.conf
+
+    - name: Start MongoDB
+      ansible.builtin.systemd:
+        name: mongod
+        state: restarted
+        enable: true
+
     - name: Load Schema
       ansible.builtin.shell: mongo --host mongodb-dev.msdevops72.online </app/schema/{{component}}.js

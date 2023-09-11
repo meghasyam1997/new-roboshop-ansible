@@ -1,0 +1,4 @@
+- name: Roboshop project setp
+  host: all
+  roles:
+    - "{{role_name}}"

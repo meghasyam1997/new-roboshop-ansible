@@ -10,7 +10,7 @@
 #  fi
 
 - name : Load MongoDB Schema
-  when: schema_setup == "mongodb"
+  when: schema_setup == "mongo"
   block:
     - name: Copy MongoDB repo
       ansible.builtin.copy:
@@ -21,12 +21,6 @@
       ansible.builtin.yum:
         name: mongodb-org
         state: installed
-
-    - name: Update MongoDB Listen Address
-      ansible.builtin.shell: sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/mongod.conf
-
-    - name: Restart MongoDB
-      service: name=mongod state=restarted
 
     - name: Load Schema
       ansible.builtin.shell: mongo --host mongodb-dev.msdevops72.online </app/schema/{{component}}.js

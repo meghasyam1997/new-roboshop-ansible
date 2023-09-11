@@ -3,7 +3,7 @@
     src: "{{component}}.service"
     dest: /etc/systemd/system/{{component}}.service
 
-- name: Start {{ component }} service
+- name: Start {{ component }} services
   ansible.builtin.systemd:
     name: "{{ component }}"
     state: restarted

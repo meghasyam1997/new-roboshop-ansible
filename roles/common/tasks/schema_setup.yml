@@ -28,8 +28,6 @@
     - name: Restart MongoDB
       ansible.builtin.systemd:
         daemon_reload: true
-        state: restarted
-        enable: true
 
     - name: Load Schema
       ansible.builtin.shell: mongo --host mongodb-dev.msdevops72.online </app/schema/{{component}}.js

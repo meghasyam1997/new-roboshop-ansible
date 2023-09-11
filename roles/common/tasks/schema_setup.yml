@@ -26,8 +26,7 @@
       ansible.builtin.shell: sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/mongod.conf
 
     - name: Restart MongoDB
-      ansible.builtin.systemd:
-        daemon_reload: true
+      service: name=mongod state=restarted
 
     - name: Load Schema
       ansible.builtin.shell: mongo --host mongodb-dev.msdevops72.online </app/schema/{{component}}.js

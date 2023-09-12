@@ -1,16 +1,10 @@
-#func_print_head "Start Nginx"
-#systemctl enable nginx &>>$log_file
-#systemctl restart nginx &>>$log_file
-#func_stat_check $?
-
-
 - name: Install Nginx
   ansible.builtin.yum:
     name: nginx
     state: latest
 
 - name: Copy roboshop Config file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
@@ -29,3 +23,10 @@
     src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
     dest: /usr/share/nginx/html
     remote_src: true
+
+- name: Restart Nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+    enabled: true
+    daemon_reload: true
